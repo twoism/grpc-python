@@ -2,13 +2,13 @@
 set -e
 
 PROTO_DIR="./protos"
-OUTPUT_DIR="./generated"
+OUTPUT_DIR="./"
 PROTOC_ARGS="--python_out=$OUTPUT_DIR --grpc_out=$OUTPUT_DIR --plugin=protoc-gen-grpc=`which grpc_python_plugin`"
 
 command -v protoc >/dev/null 2>&1 || {
   echo "protoc not found!"
   echo "Install protocol buffers and grpc before continuing."
-  echo "http://www.grpc.io/docs/tutorials/basic/python.html"
+  echo "http://www.grpc.io/docs/#install-grpc"
   exit 1
 }
 
