@@ -44,7 +44,7 @@ def run():
 
   elif cmd == "set":
     # ensure a key and value were provided
-    if len(sys.argv) != 4:
+    if len(sys.argv) < 4:
       print(_USAGE)
       sys.exit(1)
 
