@@ -6,7 +6,7 @@ import sys
 import kv_pb2
 
 _TIMEOUT_SECONDS = 10
-_GRPC_PORT = 4222
+_GRPC_PORT = 50051
 _USAGE = """
 script/client usage:
   script/client set <key> <value> - sets the <key> and <value>
@@ -21,7 +21,7 @@ def run():
 
   cmd = sys.argv[1]
 
-  channel = implementations.insecure_channel('localhost', 50051)
+  channel = implementations.insecure_channel('localhost', _GRPC_PORT)
   client_stub = kv_pb2.beta_create_KV_stub(channel)
 
   if cmd == "get":
@@ -30,6 +30,7 @@ def run():
       print(_USAGE)
       sys.exit(1)
 
+    # get the key to fetch
     key = sys.argv[2]
 
     # create the request
@@ -43,10 +44,11 @@ def run():
 
   elif cmd == "set":
     # ensure a key and value were provided
-    if len(sys.argv) != 5:
+    if len(sys.argv) != 4:
       print(_USAGE)
       sys.exit(1)
 
+    # get the key and the full text of value
     key = sys.argv[2]
     value = " ".join(sys.argv[3:])
 
@@ -57,7 +59,6 @@ def run():
     response = client_stub.Set(set_request, _TIMEOUT_SECONDS)
 
     print("set %s to %s" % (key, value))
-
 
 if __name__ == '__main__':
   run()

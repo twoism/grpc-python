@@ -8,7 +8,3 @@ class KVStore():
 
   def set(self, key, value):
     self.store[key] = value
-
-if __name__ == '__main__':
-  kv = KVStore()
-  kv.get("asfdf")
