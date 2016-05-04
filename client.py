@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from grpc.beta import implementations
 
 import sys
