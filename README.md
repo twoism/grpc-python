@@ -23,10 +23,10 @@ docker pull vschris/grpc-python
 
 ```bash
 # start the server
-docker run -it --net=host grpc-kv ./script/server
+docker run -it --net=host vschris/grpc-python ./script/server
 
 # use the client
-docker run -it --net=host grpc-kv ./script/client set fancy-thing "fancy value"
+docker run -it --net=host vschris/grpc-python ./script/client set fancy-thing "fancy value"
 ```
 
 ### Update Python to 2.7
