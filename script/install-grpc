@@ -8,5 +8,6 @@ DEST="/usr/local/bin"
 git clone https://github.com/grpc/grpc.git $WORKDIR
 cd $WORKDIR
 git submodule update --init
-make grpc_python_plugin
-cp bins/opt/grpc_python_plugin $DEST
+make plugins
+cp ./bins/opt/grpc_python_plugin $DEST
+cp ./bins/opt/protobuf/protoc $DEST
