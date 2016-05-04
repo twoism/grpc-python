@@ -8,6 +8,27 @@ This is an example [GRPC](http://grpc.io) application using Python. The IDL in `
 
 Depending on your system, you may not need to do most of these steps.  However, if you are starting from scratch with Python, follow the instructions for you OS.
 
+See [http://www.grpc.io/docs/#install-grpc](http://www.grpc.io/docs/#install-grpc) for further install instructions.
+
+### Docker Image
+
+If your are running [Docker](https://www.docker.com/) there is an image available that makes setup easy.
+
+**Fetch and run the image**
+```bash
+docker pull XXX
+```
+
+**Run the client and server commands**
+
+```bash
+# start the server
+docker run -it --net=host grpc-kv ./script/server
+
+# use the client
+docker run -it --net=host grpc-kv ./script/client set fancy-thing "fancy value"
+```
+
 ### Update Python to 2.7
 
 **OSX**

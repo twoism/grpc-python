@@ -19,7 +19,7 @@ def run():
 
   cmd = sys.argv[1]
 
-  channel = implementations.insecure_channel('localhost', _GRPC_PORT)
+  channel = implementations.insecure_channel('127.0.0.1', _GRPC_PORT)
   client_stub = kv_pb2.beta_create_KV_stub(channel)
 
   if cmd == "get":
