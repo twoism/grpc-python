@@ -14,9 +14,9 @@ See [http://www.grpc.io/docs/#install-grpc](http://www.grpc.io/docs/#install-grp
 
 If your are running [Docker](https://www.docker.com/) there is an image available that makes setup easy.
 
-**Fetch and run the image**
+**Fetch the image**
 ```bash
-docker pull XXX
+docker pull vschris/grpc-python
 ```
 
 **Run the client and server commands**
