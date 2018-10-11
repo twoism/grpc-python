@@ -1,10 +1,11 @@
-import kv_pb2
+import kv_pb2, kv_pb2_grpc
 import kv_store
+import grpc
+import pprint
 
-class Server(kv_pb2.BetaKVServicer):
+class Server(kv_pb2_grpc.KVServicer):
   def __init__(self):
     self.store = kv_store.KVStore()
-    kv_pb2.BetaKVServicer.__init__(self)
 
   def Get(self, request, context):
     print("[kv-server] get %s" % request.key)
@@ -13,6 +14,8 @@ class Server(kv_pb2.BetaKVServicer):
     return kv_pb2.GetResponse(value=value)
 
   def Set(self, request, context):
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(context.invocation_metadata())
     print("[kv-server] set %s=%s" % (request.key, request.value))
     self.store.set(request.key, request.value)
 

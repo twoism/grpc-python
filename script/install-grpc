@@ -2,7 +2,7 @@
 
 set -e
 
-WORKDIR="/grpc"
+WORKDIR="./grpc"
 DEST="/usr/local/bin"
 
 git clone https://github.com/grpc/grpc.git $WORKDIR

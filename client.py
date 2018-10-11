@@ -1,10 +1,10 @@
-from grpc.beta import implementations
+import grpc
 
 import sys
-import kv_pb2
+import kv_pb2, kv_pb2_grpc
 
 _TIMEOUT_SECONDS = 10
-_GRPC_PORT = 50051
+_GRPC_HOST = "127.0.0.1:50051"
 _USAGE = """
 script/client usage:
   script/client set <key> <value> - sets the <key> and <value>
@@ -19,8 +19,8 @@ def run():
 
   cmd = sys.argv[1]
 
-  channel = implementations.insecure_channel('127.0.0.1', _GRPC_PORT)
-  client_stub = kv_pb2.beta_create_KV_stub(channel)
+  channel = grpc.insecure_channel(_GRPC_HOST)
+  client_stub = kv_pb2_grpc.KVStub(channel)
 
   if cmd == "get":
     # ensure a key was provided
@@ -54,7 +54,8 @@ def run():
     set_request = kv_pb2.SetRequest(key=key, value=value)
 
     # send the request to the server
-    response = client_stub.Set(set_request, _TIMEOUT_SECONDS)
+    md = (('md-key', 'some value'),)
+    response = client_stub.Set(set_request, _TIMEOUT_SECONDS, metadata=md)
 
     print("set %s to %s" % (key, value))
 

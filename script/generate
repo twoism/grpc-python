@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -ex
 
 command -v protoc >/dev/null 2>&1 || {
   echo "protoc not found!"
@@ -8,22 +8,22 @@ command -v protoc >/dev/null 2>&1 || {
   exit 1
 }
 
-command -v grpc_python_plugin >/dev/null 2>&1 || {
-  echo "python grpc plugin not found!"
-  echo "Install protoc and grpc before continuing."
-  echo "http://www.grpc.io/docs/#install-grpc"
-  exit 1
-}
+# command -v grpc_python_plugin >/dev/null 2>&1 || {
+#   echo "python grpc plugin not found!"
+#   echo "Install protoc and grpc before continuing."
+#   echo "http://www.grpc.io/docs/#install-grpc"
+#   exit 1
+# }
 
 PROTO_DIR="./protos"
 OUTPUT_DIR="./"
-PROTOC_ARGS="--python_out=$OUTPUT_DIR --grpc_out=$OUTPUT_DIR --plugin=protoc-gen-grpc=`which grpc_python_plugin`"
+PROTOC_ARGS="--python_out=$OUTPUT_DIR --grpc_python_out=$OUTPUT_DIR "
 
 mkdir -p $OUTPUT_DIR
 
 for PROTO in $(find $PROTO_DIR -name "*.proto"); do
   echo "generating: $PROTO into $OUTPUT_DIR"
-  protoc -I $PROTO_DIR $PROTOC_ARGS $PROTO
+  python -m grpc_tools.protoc -I $PROTO_DIR $PROTOC_ARGS $PROTO
 done
 
 echo "all done."
